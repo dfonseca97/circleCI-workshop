@@ -1,12 +1,10 @@
-FROM golang:1.10-alpine3.7 as builder
-WORKDIR /go/src/circleCI-workshop/main
-COPY . .
-RUN go get -d ./... && go build -o main .
+FROM golang:alpine
 
-FROM alpine:3.8
-RUN apk --no-cache add ca-certificates
-WORKDIR /root/
-COPY --from=builder /go/src/circleCI-workshop/main .
-
+ADD /main.go  /go/src/main/
+ADD /strings.go  /go/src/main/
+ADD /strings_test.go  /go/src/main/
+ADD /temp.html  /go/src/main/
+RUN go get ./src/main
+RUN go install main
+ENTRYPOINT /go/bin/main
 EXPOSE 8080
-ENTRYPOINT ./main
