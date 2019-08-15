@@ -1,0 +1,38 @@
+# Golang CircleCI 2.0 configuration file
+version: 2
+
+orbs:
+  heroku: circleci/heroku@1.0.0
+
+jobs:
+  build:
+    docker:
+      - image: circleci/golang:1.9
+
+    working_directory: /go/src/github.com/twogg-git/go-endava
+    steps:
+      - checkout
+      - run: go get -v -t -d ./...
+      - run: go test -v ./...
+
+  deploy:
+      docker:
+        - image: buildpack-deps:trusty
+      steps:
+        - checkout
+        - run:
+            name: Deploy Master to Heroku
+            command: |
+              git push https://heroku:$HEROKU_KEY@git.heroku.com/go-endava.git master
+    
+workflows:
+  version: 2
+  build-deploy:
+    jobs:
+      - build
+      - deploy:
+          requires:
+             - build
+          filters:
+            branches:
+              only: master
