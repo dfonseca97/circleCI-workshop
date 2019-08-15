@@ -9,7 +9,7 @@ jobs:
     docker:
       - image: circleci/golang:1.9
 
-    working_directory: /go/src/github.com/twogg-git/go-endava
+    working_directory: /go/src/github.com/dfonseca97/circleCI-workshop
     steps:
       - checkout
       - run: go get -v -t -d ./...
@@ -23,7 +23,7 @@ jobs:
         - run:
             name: Deploy Master to Heroku
             command: |
-              git push https://heroku:$HEROKU_KEY@git.heroku.com/go-endava.git master
+              git push https://heroku:$HEROKU_KEY@git.heroku.com/circleCI-workshop.git master
     
 workflows:
   version: 2
