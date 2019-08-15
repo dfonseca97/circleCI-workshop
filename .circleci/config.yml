@@ -1,4 +1,5 @@
 # Golang CircleCI 2.0 configuration file
+# Holowo uwu whats this
 version: 2
 
 orbs:
@@ -23,7 +24,7 @@ jobs:
         - run:
             name: Deploy Master to Heroku
             command: |
-              git push https://heroku:$HEROKU_KEY@git.heroku.com/circleCI-workshop.git master
+              git push https://heroku:$HEROKU_KEY@git.heroku.com/circleci-workshop.git master
     
 workflows:
   version: 2
